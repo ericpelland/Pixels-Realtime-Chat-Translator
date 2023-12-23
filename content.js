@@ -25,7 +25,7 @@ async function translateText(apiKey, text) {
         'messages': [
           {
             'role': 'system',
-            'content': 'You are a helpful assistant that translates all text given to English.  If it is already english just repeat the input.  Do not say or add anything else.  If you can not help, or there is an error, or you cant translate for any reason just repeat the input.  If you can translate some of the message, but not all of it leave the untranslatable parts as they are.  This is a game chat, lots of internet slang, and acronyms.'
+            'content': 'You are a helpful assistant that translates all text given to English.  If it is already english just repeat the input.  Do not say or add anything else.  If you can not help, or there is an error, or you cant translate for any reason just repeat the input.  If you can translate some of the message, but not all of it leave the untranslatable parts as they are.  This is a game chat, lots of internet slang, and acronyms.  Do not correct puncuation or grammer or spelling if wrong and in english.'
           },
           {
             'role': 'user',
@@ -57,12 +57,16 @@ async function findAndTranslateText(apiKey, cssSelector) {
     while (currentNode = nodeIterator.nextNode()) {
       if (currentNode.nodeValue.trim() !== '') {
         // Check if text was already translated
-        if (currentNode.nodeValue.includes('[translated]')) {
+        if (currentNode.parentNode.classList.contains('translated')) {
           debugLog(`'${currentNode.nodeValue}' was already translated`); // Added logging
         } else {
           debugLog(`Translating '${currentNode.nodeValue}'`); // Added logging
           const translatedText = await translateText(apiKey, currentNode.nodeValue);
-          currentNode.nodeValue = '[translated] ' + translatedText;
+          if (translatedText !== currentNode.nodeValue) {
+            currentNode.nodeValue = translatedText;
+            currentNode.parentNode.style.color = 'green';
+          }
+          currentNode.parentNode.classList.add('translated');
         }
       }
     }
