@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "OpenAI GPT-3 Translator",
+  "description": "This extension uses OpenAI GPT-3 to translate text within a specified CSS selector.",
+  "version": "1.0",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": ["https://play.pixels.xyz/*"],
+      "js": ["content.js"]
+    }
+  ]
+}
