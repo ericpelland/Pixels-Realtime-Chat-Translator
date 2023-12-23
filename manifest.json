@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Pixels Game Realtime Chat Translator",
-  "description": "This extension uses OpenAI GPT-3 to translate text within the in-game chat in real-time for Pixels game players.",
+  "name": "Pixels Realtime Chat Translator",
+  "description": "This extension uses OpenAI GPT to translate text within the in-game chat in real-time for Pixels game players.",
   "version": "1.0",
   "permissions": [
     "activeTab",
